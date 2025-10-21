@@ -1,0 +1,26 @@
+{
+    "name": "ai-customer-service-app",
+    "version": "1.0.0",
+    "description": "Full-stack AI-powered customer service application",
+    "scripts": {
+        "dev": "concurrently \"npm run server\" \"npm run client\"",
+        "server": "cd backend && npm run dev",
+        "client": "cd frontend && npm start",
+        "build": "cd frontend && npm run build",
+        "install-deps": "cd backend && npm install && cd ../frontend && npm install",
+        "start": "cd backend && npm start"
+    },
+    "devDependencies": {
+        "concurrently": "^8.2.0"
+    },
+    "keywords": [
+        "ai",
+        "customer-service",
+        "mern",
+        "react",
+        "nodejs",
+        "mongodb"
+    ],
+    "author": "Your Name",
+    "license": "MIT"
+}
