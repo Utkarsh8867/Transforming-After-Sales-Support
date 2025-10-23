@@ -9,10 +9,9 @@ import {
     Button,
     Rating,
     TextField,
-    Alert,
     Paper,
 } from '@mui/material';
-import { ArrowBack, ThumbUp, ThumbDown } from '@mui/icons-material';
+import { ArrowBack, ThumbUp } from '@mui/icons-material';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { queriesAPI } from '../../services/api';
@@ -38,27 +37,49 @@ const QueryDetail = () => {
         register,
         handleSubmit,
         watch,
+        setValue,
+        reset,
         formState: { errors },
     } = useForm();
 
     const rating = watch('rating');
 
     const rateQueryMutation = useMutation(
-        (ratingData) => queriesAPI.rateQuery(id, ratingData),
+        (ratingData) => {
+            console.log('API call - Rating data:', ratingData);
+            return queriesAPI.rateQuery(id, ratingData);
+        },
         {
-            onSuccess: () => {
+            onSuccess: (response) => {
+                console.log('Rating submitted successfully:', response);
                 queryClient.invalidateQueries(['query', id]);
                 toast.success('Thank you for your feedback!');
                 setShowRating(false);
+                reset();
             },
             onError: (error) => {
-                toast.error(error.response?.data?.message || 'Failed to submit rating');
+                console.error('Rating submission error:', error);
+                const errorMessage = error.response?.data?.message ||
+                    error.response?.data?.errors?.[0]?.msg ||
+                    'Failed to submit rating';
+                toast.error(errorMessage);
             },
         }
     );
 
     const onSubmitRating = (data) => {
-        rateQueryMutation.mutate(data);
+        if (!data.rating) {
+            toast.error('Please select a rating before submitting');
+            return;
+        }
+
+        const ratingData = {
+            rating: parseInt(data.rating),
+            feedback: data.feedback || ''
+        };
+
+        console.log('Submitting rating:', ratingData); // Debug log
+        rateQueryMutation.mutate(ratingData);
     };
 
     if (isLoading) {
@@ -257,17 +278,33 @@ const QueryDetail = () => {
                                                 <Typography component="legend" gutterBottom>
                                                     Overall satisfaction:
                                                 </Typography>
-                                                <Rating
-                                                    {...register('rating', { required: 'Please provide a rating' })}
-                                                    value={rating || 0}
-                                                    onChange={(event, newValue) => {
-                                                        register('rating').onChange({
-                                                            target: { value: newValue }
-                                                        });
-                                                    }}
+                                                <Box display="flex" alignItems="center" gap={2} mb={1}>
+                                                    <Rating
+                                                        name="rating"
+                                                        value={rating || 0}
+                                                        onChange={(event, newValue) => {
+                                                            console.log('Rating changed to:', newValue);
+                                                            setValue('rating', newValue, { shouldValidate: true });
+                                                        }}
+                                                        size="large"
+                                                        precision={1}
+                                                    />
+                                                    {rating && (
+                                                        <Typography variant="body2" color="primary">
+                                                            {rating} star{rating !== 1 ? 's' : ''}
+                                                        </Typography>
+                                                    )}
+                                                </Box>
+                                                <input
+                                                    type="hidden"
+                                                    {...register('rating', {
+                                                        required: 'Please provide a rating',
+                                                        min: { value: 1, message: 'Please select at least 1 star' },
+                                                        max: { value: 5, message: 'Rating cannot exceed 5 stars' }
+                                                    })}
                                                 />
                                                 {errors.rating && (
-                                                    <Typography variant="caption" color="error">
+                                                    <Typography variant="caption" color="error" display="block" mt={1}>
                                                         {errors.rating.message}
                                                     </Typography>
                                                 )}
@@ -287,13 +324,22 @@ const QueryDetail = () => {
                                                 <Button
                                                     type="submit"
                                                     variant="contained"
-                                                    disabled={rateQueryMutation.isLoading}
+                                                    disabled={rateQueryMutation.isLoading || !rating}
                                                 >
-                                                    {rateQueryMutation.isLoading ? 'Submitting...' : 'Submit Rating'}
+                                                    {rateQueryMutation.isLoading
+                                                        ? 'Submitting...'
+                                                        : rating
+                                                            ? `Submit ${rating} Star Rating`
+                                                            : 'Submit Rating'
+                                                    }
                                                 </Button>
                                                 <Button
                                                     variant="outlined"
-                                                    onClick={() => setShowRating(false)}
+                                                    onClick={() => {
+                                                        setShowRating(false);
+                                                        reset();
+                                                    }}
+                                                    disabled={rateQueryMutation.isLoading}
                                                 >
                                                     Cancel
                                                 </Button>

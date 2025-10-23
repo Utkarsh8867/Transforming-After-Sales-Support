@@ -1,0 +1,73 @@
+/* Dashboard specific styles for better visibility */
+
+.dashboard-header {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%) !important;
+    box-shadow: 0 4px 20px rgba(0, 123, 255, 0.3) !important;
+}
+
+.stats-card {
+    transition: all 0.3s ease-in-out !important;
+    border-radius: 12px !important;
+}
+
+.stats-card:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+}
+
+.logo-container {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.sidebar-logo {
+    transition: all 0.3s ease-in-out;
+}
+
+.sidebar-logo:hover {
+    transform: scale(1.05);
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+    .dashboard-header {
+        padding: 16px !important;
+        text-align: center !important;
+    }
+
+    .stats-card {
+        margin-bottom: 16px !important;
+    }
+}
+
+/* Better visibility for text */
+.dashboard-title {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-weight: 600 !important;
+}
+
+.card-content {
+    padding: 24px !important;
+}
+
+/* Improved button styles */
+.action-button {
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3) !important;
+    transition: all 0.3s ease-in-out !important;
+}
+
+.action-button:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4) !important;
+}

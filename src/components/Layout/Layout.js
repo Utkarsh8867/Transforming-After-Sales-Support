@@ -15,6 +15,7 @@ import {
     Menu,
     MenuItem,
     Badge,
+    Chip,
     useTheme,
     useMediaQuery,
 } from '@mui/material';
@@ -27,10 +28,13 @@ import {
     AdminPanelSettings,
     Logout,
     Notifications,
+    Info,
 } from '@mui/icons-material';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { useSocket } from '../../contexts/SocketContext';
+import Logo from '../Common/Logo';
+import '../../styles/dashboard.css';
 
 const drawerWidth = 240;
 
@@ -65,6 +69,7 @@ const Layout = ({ children }) => {
         { text: 'Dashboard', icon: <Dashboard />, path: '/' },
         { text: 'My Queries', icon: <QuestionAnswer />, path: '/queries' },
         { text: 'New Query', icon: <Add />, path: '/queries/new' },
+        { text: 'About', icon: <Info />, path: '/about' },
     ];
 
     if (user?.role === 'admin') {
@@ -76,23 +81,57 @@ const Layout = ({ children }) => {
 
     const drawer = (
         <Box>
-            <Toolbar>
-                <Typography variant="h6" noWrap component="div">
-                    AI Customer Service
-                </Typography>
+            <Toolbar sx={{ minHeight: '80px !important', px: 2 }}>
+                <Box
+                    className="sidebar-logo"
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    width="100%"
+                    sx={{ py: 1 }}
+                >
+                    <Logo size="medium" variant="sidebar" />
+                </Box>
             </Toolbar>
-            <List>
+            <List sx={{ px: 1 }}>
                 {menuItems.map((item) => (
-                    <ListItem key={item.text} disablePadding>
+                    <ListItem key={item.text} disablePadding sx={{ mb: 0.5 }}>
                         <ListItemButton
                             selected={location.pathname === item.path}
                             onClick={() => {
                                 navigate(item.path);
                                 if (isMobile) setMobileOpen(false);
                             }}
+                            sx={{
+                                borderRadius: 2,
+                                mx: 1,
+                                '&.Mui-selected': {
+                                    backgroundColor: 'primary.main',
+                                    color: 'white',
+                                    '& .MuiListItemIcon-root': {
+                                        color: 'white',
+                                    },
+                                    '&:hover': {
+                                        backgroundColor: 'primary.dark',
+                                    }
+                                },
+                                '&:hover': {
+                                    backgroundColor: 'primary.light',
+                                    color: 'white',
+                                    '& .MuiListItemIcon-root': {
+                                        color: 'white',
+                                    }
+                                }
+                            }}
                         >
-                            <ListItemIcon>{item.icon}</ListItemIcon>
-                            <ListItemText primary={item.text} />
+                            <ListItemIcon sx={{ minWidth: 40 }}>{item.icon}</ListItemIcon>
+                            <ListItemText
+                                primary={item.text}
+                                primaryTypographyProps={{
+                                    fontWeight: location.pathname === item.path ? 'bold' : 'medium',
+                                    fontSize: '0.9rem'
+                                }}
+                            />
                         </ListItemButton>
                     </ListItem>
                 ))}
@@ -120,9 +159,23 @@ const Layout = ({ children }) => {
                         <MenuIcon />
                     </IconButton>
 
-                    <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
-                        {getPageTitle(location.pathname)}
-                    </Typography>
+                    <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', gap: 2 }}>
+                        <Typography variant="h6" noWrap component="div" sx={{ fontWeight: 'bold' }}>
+                            {getPageTitle(location.pathname)}
+                        </Typography>
+                        {!isMobile && (
+                            <Chip
+                                label="AI Powered"
+                                size="small"
+                                color="secondary"
+                                sx={{
+                                    backgroundColor: 'rgba(255,255,255,0.2)',
+                                    color: 'white',
+                                    fontWeight: 'bold'
+                                }}
+                            />
+                        )}
+                    </Box>
 
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                         <Badge
@@ -222,6 +275,7 @@ const getPageTitle = (pathname) => {
         '/queries': 'My Queries',
         '/queries/new': 'Create New Query',
         '/profile': 'Profile',
+        '/about': 'About',
         '/admin': 'Admin Dashboard',
         '/admin/queries': 'All Queries',
     };

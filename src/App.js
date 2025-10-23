@@ -13,6 +13,7 @@ import CreateQuery from './pages/Queries/CreateQuery';
 import AdminDashboard from './pages/Admin/AdminDashboard';
 import AdminQueries from './pages/Admin/AdminQueries';
 import Profile from './pages/Profile/Profile';
+import About from './pages/About/About';
 import LoadingSpinner from './components/Common/LoadingSpinner';
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
                 <Route path="/queries/new" element={<CreateQuery />} />
                 <Route path="/queries/:id" element={<QueryDetail />} />
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/about" element={<About />} />
 
                 {user.role === 'admin' && (
                     <>
