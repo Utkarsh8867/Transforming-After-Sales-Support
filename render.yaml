@@ -2,7 +2,7 @@ services:
   - type: web
     name: ai-customer-service-frontend
     env: static
-    buildCommand: npm install && npm run build
+    buildCommand: npm ci && npm run build
     staticPublishPath: ./build
     pullRequestPreviewsEnabled: false
     headers:
@@ -21,14 +21,16 @@ services:
         destination: /index.html
     envVars:
       - key: NODE_VERSION
-        value: 18.20.4
+        value: 20.11.0
       - key: GENERATE_SOURCEMAP
         value: false
       - key: CI
         value: false
+      - key: NODE_OPTIONS
+        value: --max-old-space-size=4096
       - key: REACT_APP_API_BASE_URL
-        value: https://your-backend-url.onrender.com
+        value: https://transforming-after-sales-support-backend.onrender.com
       - key: REACT_APP_API_URL
-        value: https://your-backend-url.onrender.com/api
+        value: https://transforming-after-sales-support-backend.onrender.com/api
       - key: REACT_APP_SOCKET_URL
-        value: https://your-backend-url.onrender.com
+        value: https://transforming-after-sales-support-backend.onrender.com
