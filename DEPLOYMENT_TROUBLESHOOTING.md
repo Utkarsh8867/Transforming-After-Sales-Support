@@ -88,9 +88,9 @@ CI=false
 
 ### **Step 2: Render Configuration**
 1. **Service Type:** Static Site
-2. **Build Command:** `npm ci && npm run build`
+2. **Build Command:** `npm install && node verify-deps.js && npm run build`
 3. **Publish Directory:** `build`
-4. **Node Version:** 20 (auto-detected from .nvmrc)
+4. **Node Version:** 20.11.0 (specified in .nvmrc)
 
 ### **Step 3: Environment Variables**
 Set these in Render dashboard:

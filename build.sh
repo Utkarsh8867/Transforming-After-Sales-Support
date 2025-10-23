@@ -8,20 +8,28 @@ export CI=false
 export GENERATE_SOURCEMAP=false
 export NODE_OPTIONS="--max-old-space-size=4096"
 
-# Clean any existing node_modules and package-lock
+# Check Node.js version
+echo "Node.js version: $(node --version)"
+echo "npm version: $(npm --version)"
+
+# Clean any existing installations
 echo "Cleaning previous installations..."
 rm -rf node_modules package-lock.json
 
-# Install dependencies with clean install
-echo "Installing dependencies with npm ci..."
-npm ci
+# Install dependencies
+echo "Installing dependencies..."
+npm install
 
-# Verify react-scripts is installed
+# Verify critical dependencies
 echo "Verifying react-scripts installation..."
 if [ ! -f "node_modules/.bin/react-scripts" ]; then
     echo "react-scripts not found, installing explicitly..."
-    npm install react-scripts@5.0.1
+    npm install react-scripts@5.0.1 --save
 fi
+
+# List installed packages for debugging
+echo "Checking installed packages..."
+npm list react-scripts || echo "react-scripts not properly installed"
 
 # Build the application
 echo "Building React application..."
@@ -36,4 +44,5 @@ if [ -d "build" ]; then
     ls -la build/ 2>/dev/null || echo "Could not list build contents"
 else
     echo "Warning: Build directory not found!"
+    exit 1
 fi

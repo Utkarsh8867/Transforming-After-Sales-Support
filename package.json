@@ -26,6 +26,7 @@
         "build": "CI=false GENERATE_SOURCEMAP=false react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
+        "prebuild": "echo 'Starting build process...'",
         "postbuild": "echo 'Build completed successfully'"
     },
     "eslintConfig": {

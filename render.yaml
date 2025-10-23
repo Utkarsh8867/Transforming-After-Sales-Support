@@ -1,8 +1,8 @@
 services:
   - type: web
     name: ai-customer-service-frontend
-    env: static
-    buildCommand: npm ci && npm run build
+    runtime: static
+    buildCommand: npm install && node verify-deps.js && npm run build
     staticPublishPath: ./build
     pullRequestPreviewsEnabled: false
     headers:
@@ -21,16 +21,24 @@ services:
         destination: /index.html
     envVars:
       - key: NODE_VERSION
-        value: 20.11.0
+        value: "20.11.0"
       - key: GENERATE_SOURCEMAP
-        value: false
+        value: "false"
       - key: CI
-        value: false
+        value: "false"
       - key: NODE_OPTIONS
-        value: --max-old-space-size=4096
+        value: "--max-old-space-size=4096"
+      - key: NPM_CONFIG_PRODUCTION
+        value: "false"
       - key: REACT_APP_API_BASE_URL
-        value: https://transforming-after-sales-support-backend.onrender.com
+        value: "https://transforming-after-sales-support-backend.onrender.com"
       - key: REACT_APP_API_URL
-        value: https://transforming-after-sales-support-backend.onrender.com/api
+        value: "https://transforming-after-sales-support-backend.onrender.com/api"
       - key: REACT_APP_SOCKET_URL
-        value: https://transforming-after-sales-support-backend.onrender.com
+        value: "https://transforming-after-sales-support-backend.onrender.com"
+      - key: REACT_APP_APP_NAME
+        value: "AI Customer Service"
+      - key: REACT_APP_VERSION
+        value: "1.0.0"
+      - key: REACT_APP_NODE_ENV
+        value: "production"
