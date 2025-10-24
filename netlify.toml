@@ -1,6 +1,6 @@
 [build]
-  # Build command
-  command = "npm ci && npm run build"
+  # Build command - reliable installation and build
+  command = "npm install --legacy-peer-deps && npm run build"
   
   # Directory to publish (relative to root of your repo)
   publish = "build"

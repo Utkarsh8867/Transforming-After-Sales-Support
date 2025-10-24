@@ -16,9 +16,9 @@ try {
     console.log('📦 Node.js version:', process.version);
     console.log('📦 npm version:', execSync('npm --version', { encoding: 'utf8' }).trim());
 
-    // Clean install dependencies
+    // Install dependencies with legacy peer deps to avoid conflicts
     console.log('📥 Installing dependencies...');
-    execSync('npm ci', { stdio: 'inherit' });
+    execSync('npm install --legacy-peer-deps', { stdio: 'inherit' });
 
     // Verify react-scripts is available
     const reactScriptsPath = path.join(__dirname, 'node_modules', '.bin', 'react-scripts');

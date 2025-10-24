@@ -11,7 +11,7 @@
 If auto-detection fails, use these settings:
 
 **Build Settings:**
-- **Build Command:** `npm ci && npm run build`
+- **Build Command:** `npm install --legacy-peer-deps && npm run build`
 - **Publish Directory:** `build`
 - **Node Version:** `18.17.0` (set in .nvmrc)
 
@@ -65,11 +65,14 @@ REACT_APP_ITEMS_PER_PAGE=10
 # Solution: Updated .nvmrc to use Node 18.17.0
 ```
 
-#### 2. **Dependency Installation Fails**
+#### 2. **Dependency Installation Fails (package-lock.json sync issues)**
 ```bash
-# Try alternative build commands:
+# Solution: Use npm install instead of npm ci
 npm install --legacy-peer-deps && npm run build
+
+# Alternative commands:
 npm install --force && npm run build
+rm package-lock.json && npm install && npm run build
 ```
 
 #### 3. **react-scripts Not Found**
