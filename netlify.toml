@@ -1,0 +1,56 @@
+[build]
+  # Build command
+  command = "npm ci && npm run build"
+  
+  # Directory to publish (relative to root of your repo)
+  publish = "build"
+  
+  # Directory with the serverless functions
+  functions = "netlify/functions"
+
+[build.environment]
+  # Node.js version
+  NODE_VERSION = "18.17.0"
+  
+  # Build environment variables
+  CI = "false"
+  GENERATE_SOURCEMAP = "false"
+  NODE_OPTIONS = "--max-old-space-size=4096"
+  
+  # React App Environment Variables
+  REACT_APP_API_BASE_URL = "https://transforming-after-sales-support-backend.onrender.com"
+  REACT_APP_API_URL = "https://transforming-after-sales-support-backend.onrender.com/api"
+  REACT_APP_SOCKET_URL = "https://transforming-after-sales-support-backend.onrender.com"
+  REACT_APP_APP_NAME = "AI Customer Service"
+  REACT_APP_VERSION = "1.0.0"
+  REACT_APP_NODE_ENV = "production"
+  REACT_APP_AUTH_ENDPOINT = "/auth"
+  REACT_APP_QUERIES_ENDPOINT = "/queries"
+  REACT_APP_ADMIN_ENDPOINT = "/admin"
+  REACT_APP_AI_ENDPOINT = "/ai"
+  REACT_APP_ENABLE_AI_FEATURES = "true"
+  REACT_APP_ENABLE_EMAIL_NOTIFICATIONS = "true"
+  REACT_APP_ENABLE_REAL_TIME = "true"
+  REACT_APP_DEFAULT_THEME = "light"
+  REACT_APP_ITEMS_PER_PAGE = "10"
+
+# Redirect rules for SPA
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Headers for security
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Cache static assets
+[[headers]]
+  for = "/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

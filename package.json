@@ -36,6 +36,7 @@
         "build": "react-scripts build",
         "build:safe": "npm install react-scripts@5.0.1 && react-scripts build",
         "build:render": "node render-build.js",
+        "build:netlify": "node netlify-build.js",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
         "dev": "react-scripts start",
@@ -43,8 +44,8 @@
         "postbuild": "echo 'Build completed successfully!'"
     },
     "engines": {
-        "node": "20.x",
-        "npm": ">=9.0.0"
+        "node": ">=18.0.0",
+        "npm": ">=8.0.0"
     },
     "eslintConfig": {
         "extends": [
