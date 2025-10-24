@@ -94,7 +94,7 @@ const Dashboard = () => {
                             AI Customer Service Dashboard
                         </Typography>
                         <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.8)' }}>
-                            Here's an overview of your customer service queries
+                            Here&apos;s an overview of your customer service queries
                         </Typography>
                     </Box>
                 </Box>

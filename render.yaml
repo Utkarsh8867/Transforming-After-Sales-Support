@@ -1,8 +1,8 @@
 services:
   - type: web
-    name: ai-customer-service-frontend
+    name: ai-customer-service-frontend-vite
     runtime: static
-    buildCommand: npm install && node verify-deps.js && npm run build
+    buildCommand: npm install && npm run build
     staticPublishPath: ./build
     pullRequestPreviewsEnabled: false
     headers:
@@ -12,7 +12,7 @@ services:
       - path: /*
         name: X-Content-Type-Options
         value: nosniff
-      - path: /static/*
+      - path: /assets/*
         name: Cache-Control
         value: public, max-age=31536000, immutable
     routes:
@@ -22,10 +22,6 @@ services:
     envVars:
       - key: NODE_VERSION
         value: "20.11.0"
-      - key: GENERATE_SOURCEMAP
-        value: "false"
-      - key: CI
-        value: "false"
       - key: NODE_OPTIONS
         value: "--max-old-space-size=4096"
       - key: NPM_CONFIG_PRODUCTION
@@ -42,3 +38,21 @@ services:
         value: "1.0.0"
       - key: REACT_APP_NODE_ENV
         value: "production"
+      - key: REACT_APP_AUTH_ENDPOINT
+        value: "/auth"
+      - key: REACT_APP_QUERIES_ENDPOINT
+        value: "/queries"
+      - key: REACT_APP_ADMIN_ENDPOINT
+        value: "/admin"
+      - key: REACT_APP_AI_ENDPOINT
+        value: "/ai"
+      - key: REACT_APP_ENABLE_AI_FEATURES
+        value: "true"
+      - key: REACT_APP_ENABLE_EMAIL_NOTIFICATIONS
+        value: "true"
+      - key: REACT_APP_ENABLE_REAL_TIME
+        value: "true"
+      - key: REACT_APP_DEFAULT_THEME
+        value: "light"
+      - key: REACT_APP_ITEMS_PER_PAGE
+        value: "10"

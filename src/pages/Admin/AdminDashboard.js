@@ -110,7 +110,7 @@ const AdminDashboard = () => {
                                 <Box>
                                     <Typography variant="h4">{overview.todayQueries || 0}</Typography>
                                     <Typography variant="body2" color="text.secondary">
-                                        Today's Queries
+                                        Today&apos;s Queries
                                     </Typography>
                                 </Box>
                             </Box>

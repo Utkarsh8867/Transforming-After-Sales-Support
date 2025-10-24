@@ -64,10 +64,10 @@ Used in build process and package.json:
 
 ### Where Variables Are Used:
 
-1. **`src/config/config.js`** - Main configuration file that imports most environment variables
-2. **`src/services/api.js`** - API service configuration
-3. **`src/contexts/SocketContext.js`** - Socket.io connection setup
-4. **`package.json`** - Build script configuration
+1. **`src/config/config.js`** - Main configuration file that imports most environment variables (uses `import.meta.env`)
+2. **`src/services/api.js`** - API service configuration (uses `import.meta.env`)
+3. **`src/contexts/SocketContext.js`** - Socket.io connection setup (uses `import.meta.env`)
+4. **`vite.config.js`** - Vite build configuration
 
 ### Configuration Files:
 
@@ -112,10 +112,12 @@ The following categories of variables were removed as they are not used in the c
 When adding new environment variables:
 
 1. Add to both `.env` and `.env.example`
-2. Use the variable in your code
+2. Use the variable in your code with `import.meta.env.REACT_APP_*` (Vite syntax)
 3. Document it in this file
-4. Follow the `REACT_APP_` prefix convention
+4. Follow the `REACT_APP_` prefix convention (required by Vite)
 5. Use descriptive names that indicate purpose
+
+**Note:** This project uses Vite, so environment variables are accessed via `import.meta.env` instead of `process.env`.
 
 ## Environment Setup
 
