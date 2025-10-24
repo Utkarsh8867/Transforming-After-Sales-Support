@@ -34,10 +34,12 @@
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",
+        "build:safe": "npm install react-scripts@5.0.1 && react-scripts build",
+        "build:render": "node render-build.js",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
         "dev": "react-scripts start",
-        "prebuild": "echo 'Starting build process...'",
+        "prebuild": "npm list react-scripts || npm install react-scripts@5.0.1",
         "postbuild": "echo 'Build completed successfully!'"
     },
     "engines": {
