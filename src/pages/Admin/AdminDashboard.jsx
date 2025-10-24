@@ -18,7 +18,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { adminAPI } from '../../services/api';
-import LoadingSpinner from '../../components/Common/LoadingSpinner';
+import LoadingSpinner from '../../components/Common/LoadingSpinner.jsx';
 import {
     BarChart,
     Bar,

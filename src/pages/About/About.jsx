@@ -28,7 +28,7 @@ import {
     Group,
     Code,
 } from '@mui/icons-material';
-import Logo from '../../components/Common/Logo';
+import Logo from '../../components/Common/Logo.jsx';
 import '../../styles/dashboard.css';
 
 const About = () => {

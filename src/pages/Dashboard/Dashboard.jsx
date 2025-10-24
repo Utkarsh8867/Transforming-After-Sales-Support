@@ -18,8 +18,8 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { queriesAPI } from '../../services/api';
 import { useAuth } from '../../contexts/AuthContext';
-import LoadingSpinner from '../../components/Common/LoadingSpinner';
-import Logo from '../../components/Common/Logo';
+import LoadingSpinner from '../../components/Common/LoadingSpinner.jsx';
+import Logo from '../../components/Common/Logo.jsx';
 import '../../styles/dashboard.css';
 
 const Dashboard = () => {

@@ -33,7 +33,7 @@ import {
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { useSocket } from '../../contexts/SocketContext';
-import Logo from '../Common/Logo';
+import Logo from '../Common/Logo.jsx';
 import '../../styles/dashboard.css';
 
 const drawerWidth = 240;

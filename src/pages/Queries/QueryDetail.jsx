@@ -16,7 +16,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { queriesAPI } from '../../services/api';
 import { useForm } from 'react-hook-form';
-import LoadingSpinner from '../../components/Common/LoadingSpinner';
+import LoadingSpinner from '../../components/Common/LoadingSpinner.jsx';
 import toast from 'react-hot-toast';
 
 const QueryDetail = () => {
