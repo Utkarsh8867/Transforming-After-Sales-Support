@@ -16,6 +16,7 @@
   CI = "false"
   GENERATE_SOURCEMAP = "false"
   NODE_OPTIONS = "--max-old-space-size=4096"
+  DISABLE_ESLINT_PLUGIN = "true"
   
   # React App Environment Variables
   REACT_APP_API_BASE_URL = "https://transforming-after-sales-support-backend.onrender.com"
