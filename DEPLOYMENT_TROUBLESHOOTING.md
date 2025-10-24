@@ -88,7 +88,7 @@ CI=false
 
 ### **Step 2: Render Configuration**
 1. **Service Type:** Static Site
-2. **Build Command:** `npm install && node verify-deps.js && npm run build`
+2. **Build Command:** `npm ci && npm install react-scripts@5.0.1 && npm run build`
 3. **Publish Directory:** `build`
 4. **Node Version:** 20.11.0 (specified in .nvmrc)
 

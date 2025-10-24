@@ -1,10 +1,12 @@
 #!/bin/bash
 
-# Build script for Vite + React deployment
-echo "Starting Vite build process..."
+# Build script for React deployment on Render
+echo "Starting React build process..."
 
 # Set environment variables for build
 export NODE_OPTIONS="--max-old-space-size=4096"
+export CI=false
+export GENERATE_SOURCEMAP=false
 
 # Check Node.js version
 echo "Node.js version: $(node --version)"
@@ -14,27 +16,27 @@ echo "npm version: $(npm --version)"
 echo "Cleaning previous installations..."
 rm -rf node_modules package-lock.json
 
-# Install dependencies
-echo "Installing dependencies..."
-npm install
+# Install dependencies with clean install
+echo "Installing dependencies with npm ci..."
+npm ci
 
-# Verify critical dependencies
-echo "Verifying Vite installation..."
-if [ ! -f "node_modules/.bin/vite" ]; then
-    echo "Vite not found, installing explicitly..."
-    npm install vite@^4.4.5 --save-dev
+# Verify react-scripts is installed
+echo "Verifying react-scripts installation..."
+if [ ! -f "node_modules/.bin/react-scripts" ]; then
+    echo "react-scripts not found, installing explicitly..."
+    npm install react-scripts@5.0.1 --save
 fi
 
 # List installed packages for debugging
 echo "Checking installed packages..."
-npm list vite || echo "Vite not properly installed"
+npm list react-scripts || echo "react-scripts not properly installed"
 npm list react || echo "React not properly installed"
 
-# Build the application with Vite
-echo "Building React + Vite application..."
+# Build the application
+echo "Building React application..."
 npm run build
 
-echo "Vite build completed successfully!"
+echo "React build completed successfully!"
 if [ -d "build" ]; then
     echo "Build size:"
     du -sh build/ 2>/dev/null || echo "Could not calculate build size"
@@ -42,8 +44,8 @@ if [ -d "build" ]; then
     echo "Build contents:"
     ls -la build/ 2>/dev/null || echo "Could not list build contents"
     
-    echo "Assets directory:"
-    ls -la build/assets/ 2>/dev/null || echo "Could not list assets"
+    echo "Static files:"
+    ls -la build/static/ 2>/dev/null || echo "Could not list static files"
 else
     echo "Warning: Build directory not found!"
     exit 1

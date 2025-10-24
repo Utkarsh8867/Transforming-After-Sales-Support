@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-// Verify that Vite and React dependencies are properly installed
+// Verify that React and react-scripts dependencies are properly installed
 const fs = require('fs');
 const path = require('path');
 
-console.log('🔍 Verifying Vite + React dependencies...');
+console.log('🔍 Verifying React dependencies...');
 
 // Check if package.json exists
 const packageJsonPath = path.join(__dirname, 'package.json');
@@ -18,8 +18,8 @@ const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
 
 // Check critical dependencies
 const criticalDeps = {
-    dependencies: ['react', 'react-dom'],
-    devDependencies: ['vite', '@vitejs/plugin-react']
+    dependencies: ['react', 'react-dom', 'react-scripts'],
+    devDependencies: []
 };
 
 console.log('📦 Checking dependencies...');
@@ -32,15 +32,7 @@ criticalDeps.dependencies.forEach(dep => {
     }
 });
 
-console.log('🛠️  Checking devDependencies...');
-criticalDeps.devDependencies.forEach(dep => {
-    if (packageJson.devDependencies && packageJson.devDependencies[dep]) {
-        console.log(`✅ ${dep}: ${packageJson.devDependencies[dep]}`);
-    } else {
-        console.error(`❌ ${dep} not found in devDependencies!`);
-        process.exit(1);
-    }
-});
+// Skip devDependencies check since we only need react-scripts in dependencies
 
 // Check if node_modules exists
 const nodeModulesPath = path.join(__dirname, 'node_modules');
@@ -49,30 +41,29 @@ if (!fs.existsSync(nodeModulesPath)) {
 } else {
     console.log('✅ node_modules directory exists');
 
-    // Check if Vite binary exists
-    const vitePath = path.join(__dirname, 'node_modules', '.bin', 'vite');
-    const vitePathCmd = path.join(__dirname, 'node_modules', '.bin', 'vite.cmd');
-    if (fs.existsSync(vitePath) || fs.existsSync(vitePathCmd)) {
-        console.log('✅ Vite binary found');
+    // Check if react-scripts binary exists
+    const reactScriptsPath = path.join(__dirname, 'node_modules', '.bin', 'react-scripts');
+    const reactScriptsPathCmd = path.join(__dirname, 'node_modules', '.bin', 'react-scripts.cmd');
+    if (fs.existsSync(reactScriptsPath) || fs.existsSync(reactScriptsPathCmd)) {
+        console.log('✅ react-scripts binary found');
     } else {
-        console.log('⚠️  Vite binary not found in node_modules/.bin/');
+        console.log('⚠️  react-scripts binary not found in node_modules/.bin/');
     }
 }
 
-// Check if vite.config.js exists
-const viteConfigPath = path.join(__dirname, 'vite.config.js');
-if (fs.existsSync(viteConfigPath)) {
-    console.log('✅ vite.config.js found');
+// Check if package.json has correct scripts
+if (packageJson.scripts && packageJson.scripts.build) {
+    console.log('✅ Build script found:', packageJson.scripts.build);
 } else {
-    console.log('⚠️  vite.config.js not found');
+    console.log('⚠️  Build script not found');
 }
 
-// Check if main.jsx exists
-const mainJsxPath = path.join(__dirname, 'src', 'main.jsx');
-if (fs.existsSync(mainJsxPath)) {
-    console.log('✅ src/main.jsx found');
+// Check if src/index.js exists
+const indexJsPath = path.join(__dirname, 'src', 'index.js');
+if (fs.existsSync(indexJsPath)) {
+    console.log('✅ src/index.js found');
 } else {
-    console.log('⚠️  src/main.jsx not found');
+    console.log('⚠️  src/index.js not found');
 }
 
-console.log('🎉 Vite + React dependency verification complete!');
+console.log('🎉 React dependency verification complete!');
