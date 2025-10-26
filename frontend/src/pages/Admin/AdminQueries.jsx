@@ -23,7 +23,7 @@ import { Search, Reply, Edit } from '@mui/icons-material';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { adminAPI } from '../../services/api';
 import { useForm } from 'react-hook-form';
-import LoadingSpinner from '../../components/Common/LoadingSpinner';
+import LoadingSpinner from '../../components/Common/LoadingSpinner.jsx';
 import toast from 'react-hot-toast';
 
 const AdminQueries = () => {

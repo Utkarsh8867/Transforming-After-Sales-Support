@@ -14,16 +14,86 @@ const aiRoutes = require('./routes/ai');
 
 const app = express();
 const server = http.createServer(app);
+
+// CORS configuration for multiple frontend origins
+const allowedOrigins = [
+    'http://localhost:3000',
+    'http://localhost:3001',
+    'https://localhost:3000',
+    'https://localhost:3001',
+    process.env.FRONTEND_URL,
+    // Add additional frontend URLs from environment
+    ...(process.env.ADDITIONAL_FRONTEND_URLS ? process.env.ADDITIONAL_FRONTEND_URLS.split(',').map(url => url.trim()) : []),
+    // Add common deployment platform patterns
+    /^https:\/\/.*\.onrender\.com$/,
+    /^https:\/\/.*\.netlify\.app$/,
+    /^https:\/\/.*\.vercel\.app$/,
+    /^https:\/\/.*\.github\.io$/,
+    /^https:\/\/.*\.herokuapp\.com$/,
+    /^https:\/\/.*\.railway\.app$/,
+    /^https:\/\/.*\.surge\.sh$/
+].filter(Boolean);
+
+const corsOptions = {
+    origin: function (origin, callback) {
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
+
+        // Check if origin is in allowed list or matches patterns
+        const isAllowed = allowedOrigins.some(allowedOrigin => {
+            if (typeof allowedOrigin === 'string') {
+                return origin === allowedOrigin;
+            }
+            if (allowedOrigin instanceof RegExp) {
+                return allowedOrigin.test(origin);
+            }
+            return false;
+        });
+
+        if (isAllowed) {
+            callback(null, true);
+        } else {
+            console.log('CORS blocked origin:', origin);
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+    exposedHeaders: ['X-Total-Count']
+};
+
 const io = socketIo(server, {
     cors: {
-        origin: process.env.FRONTEND_URL || "http://localhost:3000",
-        methods: ["GET", "POST"]
+        origin: corsOptions.origin,
+        methods: ["GET", "POST"],
+        credentials: true
     }
 });
 
 // Middleware
-app.use(helmet());
-app.use(cors());
+app.use(helmet({
+    crossOriginEmbedderPolicy: false,
+    contentSecurityPolicy: {
+        directives: {
+            defaultSrc: ["'self'"],
+            styleSrc: ["'self'", "'unsafe-inline'"],
+            scriptSrc: ["'self'"],
+            imgSrc: ["'self'", "data:", "https:"],
+        },
+    },
+}));
+// CORS debugging middleware (only in development)
+if (process.env.NODE_ENV === 'development') {
+    app.use((req, res, next) => {
+        console.log('Request Origin:', req.headers.origin);
+        console.log('Request Method:', req.method);
+        console.log('Request Headers:', req.headers);
+        next();
+    });
+}
+
+app.use(cors(corsOptions));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 

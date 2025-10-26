@@ -18,7 +18,7 @@ import { Add, Search } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { queriesAPI } from '../../services/api';
-import LoadingSpinner from '../../components/Common/LoadingSpinner';
+import LoadingSpinner from '../../components/Common/LoadingSpinner.jsx';
 
 const Queries = () => {
     const [page, setPage] = useState(1);

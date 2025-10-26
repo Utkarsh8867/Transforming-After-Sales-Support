@@ -18,7 +18,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { adminAPI } from '../../services/api';
-import LoadingSpinner from '../../components/Common/LoadingSpinner';
+import LoadingSpinner from '../../components/Common/LoadingSpinner.jsx';
 import {
     BarChart,
     Bar,
@@ -110,7 +110,7 @@ const AdminDashboard = () => {
                                 <Box>
                                     <Typography variant="h4">{overview.todayQueries || 0}</Typography>
                                     <Typography variant="body2" color="text.secondary">
-                                        Today's Queries
+                                        Today&apos;s Queries
                                     </Typography>
                                 </Box>
                             </Box>

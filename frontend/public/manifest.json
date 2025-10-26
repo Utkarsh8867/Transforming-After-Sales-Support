@@ -1,15 +1,26 @@
 {
     "short_name": "AI Customer Service",
     "name": "AI-Powered Customer Service App",
+    "description": "Intelligent customer support with AI-powered responses and real-time communication",
     "icons": [
         {
-            "src": "favicon.ico",
-            "sizes": "64x64 32x32 24x24 16x16",
-            "type": "image/x-icon"
+            "src": "OIP.jpg",
+            "sizes": "192x192",
+            "type": "image/jpeg"
+        },
+        {
+            "src": "OIP.jpg",
+            "sizes": "512x512",
+            "type": "image/jpeg"
         }
     ],
     "start_url": ".",
     "display": "standalone",
-    "theme_color": "#000000",
-    "background_color": "#ffffff"
+    "theme_color": "#007bff",
+    "background_color": "#ffffff",
+    "categories": [
+        "business",
+        "productivity",
+        "utilities"
+    ]
 }

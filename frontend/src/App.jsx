@@ -3,17 +3,18 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { Box } from '@mui/material';
 
 import { useAuth } from './contexts/AuthContext';
-import Layout from './components/Layout/Layout';
-import Login from './pages/Auth/Login';
-import Register from './pages/Auth/Register';
-import Dashboard from './pages/Dashboard/Dashboard';
-import Queries from './pages/Queries/Queries';
-import QueryDetail from './pages/Queries/QueryDetail';
-import CreateQuery from './pages/Queries/CreateQuery';
-import AdminDashboard from './pages/Admin/AdminDashboard';
-import AdminQueries from './pages/Admin/AdminQueries';
-import Profile from './pages/Profile/Profile';
-import LoadingSpinner from './components/Common/LoadingSpinner';
+import Layout from './components/Layout/Layout.jsx';
+import Login from './pages/Auth/Login.jsx';
+import Register from './pages/Auth/Register.jsx';
+import Dashboard from './pages/Dashboard/Dashboard.jsx';
+import Queries from './pages/Queries/Queries.jsx';
+import QueryDetail from './pages/Queries/QueryDetail.jsx';
+import CreateQuery from './pages/Queries/CreateQuery.jsx';
+import AdminDashboard from './pages/Admin/AdminDashboard.jsx';
+import AdminQueries from './pages/Admin/AdminQueries.jsx';
+import Profile from './pages/Profile/Profile.jsx';
+import About from './pages/About/About.jsx';
+import LoadingSpinner from './components/Common/LoadingSpinner.jsx';
 
 function App() {
     const { user, loading } = useAuth();
@@ -49,6 +50,7 @@ function App() {
                 <Route path="/queries/new" element={<CreateQuery />} />
                 <Route path="/queries/:id" element={<QueryDetail />} />
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/about" element={<About />} />
 
                 {user.role === 'admin' && (
                     <>

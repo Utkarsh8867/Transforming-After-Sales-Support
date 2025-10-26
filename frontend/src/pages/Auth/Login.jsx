@@ -122,7 +122,7 @@ const Login = () => {
                             </Button>
                             <Box textAlign="center">
                                 <Link component={RouterLink} to="/register" variant="body2">
-                                    Don't have an account? Sign Up
+                                    Don&apos;t have an account? Sign Up
                                 </Link>
                             </Box>
                         </Box>
